@@ -4,7 +4,7 @@
 
 // Buscar todas as consultas do utilizador
 async function getConsultas(userId, filtro = 'todas') {
-    let query = supabase
+    let query = supabaseClient
         .from('consultas')
         .select(`
             *,
@@ -25,7 +25,7 @@ async function getConsultas(userId, filtro = 'todas') {
 
 // Buscar médicos disponíveis
 async function getMedicos() {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('medicos')
         .select('*')
         .order('nome');
@@ -36,7 +36,7 @@ async function getMedicos() {
 
 // Criar nova consulta
 async function criarConsulta(consulta) {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('consultas')
         .insert([consulta])
         .select()
@@ -48,7 +48,7 @@ async function criarConsulta(consulta) {
 
 // Atualizar consulta
 async function atualizarConsulta(id, updates) {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('consultas')
         .update(updates)
         .eq('id', id)
@@ -61,7 +61,7 @@ async function atualizarConsulta(id, updates) {
 
 // Cancelar consulta
 async function cancelarConsulta(id) {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('consultas')
         .update({ estado: 'cancelada' })
         .eq('id', id)
@@ -74,7 +74,7 @@ async function cancelarConsulta(id) {
 
 // Verificar se já existe consulta no mesmo dia/hora/médico
 async function verificarConflito(medicoId, data, hora, excluirId = null) {
-    let query = supabase
+    let query = supabaseClient
         .from('consultas')
         .select('id')
         .eq('medico_id', medicoId)
@@ -93,7 +93,7 @@ async function verificarConflito(medicoId, data, hora, excluirId = null) {
 
 // Estatísticas do utilizador
 async function getEstatisticas(userId) {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('consultas')
         .select('estado')
         .eq('utilizador_id', userId);

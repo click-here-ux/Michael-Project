@@ -4,7 +4,7 @@
 
 // Verificar se o utilizador está autenticado
 async function checkAuth() {
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session } } = await supabaseClient.auth.getSession();
     if (!session) {
         // Redirecionar para login se não estiver autenticado
         if (!window.location.pathname.includes('index.html')) {
@@ -17,11 +17,11 @@ async function checkAuth() {
 
 // Obter dados do utilizador atual
 async function getCurrentUser() {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) return null;
 
     // Buscar dados extras do utilizador na tabela utilizadores
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('utilizadores')
         .select('*')
         .eq('id', user.id)
@@ -38,7 +38,7 @@ async function getCurrentUser() {
 // Registar novo utilizador
 async function registerUser(nome, email, telefone, password) {
     // 1. Criar conta no Auth
-    const { data: authData, error: authError } = await supabase.auth.signUp({
+    const { data: authData, error: authError } = await supabaseClient.auth.signUp({
         email: email,
         password: password
     });
@@ -47,7 +47,7 @@ async function registerUser(nome, email, telefone, password) {
 
     // 2. Inserir dados na tabela utilizadores
     if (authData.user) {
-        const { error: insertError } = await supabase
+        const { error: insertError } = await supabaseClient
             .from('utilizadores')
             .insert([{
                 id: authData.user.id,
@@ -64,7 +64,7 @@ async function registerUser(nome, email, telefone, password) {
 
 // Login
 async function loginUser(email, password) {
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
         email: email,
         password: password
     });
@@ -75,14 +75,14 @@ async function loginUser(email, password) {
 
 // Logout
 async function logoutUser() {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await supabaseClient.auth.signOut();
     if (error) throw error;
     window.location.href = 'index.html';
 }
 
 // Atualizar perfil do utilizador
 async function updateUserProfile(userId, updates) {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('utilizadores')
         .update(updates)
         .eq('id', userId)
