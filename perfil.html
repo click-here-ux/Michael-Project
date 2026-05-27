@@ -8,13 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="dashboard.html">
-                <img src="images/logo.svg" alt="MedAgenda" width="30" height="30" class="me-2">
+            <a class="navbar-brand" href="dashboard.html">
+                <img src="images/logo.svg" alt="MedAgenda" width="32" height="32" class="me-2">
                 MedAgenda
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -50,37 +50,37 @@
     <!-- Perfil Content -->
     <section class="container py-4">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-7">
                 <!-- Profile Card -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body p-4 text-center">
-                        <div class="profile-avatar mx-auto mb-3">
+                <div class="card mb-4">
+                    <div class="card-body p-5 text-center">
+                        <div class="profile-avatar mb-4">
                             <i class="bi bi-person-fill"></i>
                         </div>
                         <h4 id="perfilNome" class="fw-bold mb-1">Nome do Utilizador</h4>
-                        <p id="perfilEmail" class="text-muted mb-0">email@exemplo.com</p>
+                        <p id="perfilEmail" style="color: var(--gray-500);" class="mb-0">email@exemplo.com</p>
                     </div>
                 </div>
 
                 <!-- Edit Profile -->
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white border-0 py-3">
+                <div class="card">
+                    <div class="card-header py-3">
                         <h5 class="mb-0 fw-bold">
-                            <i class="bi bi-pencil-square me-2 text-primary"></i>Editar Perfil
+                            <i class="bi bi-pencil-square me-2"></i>Editar Perfil
                         </h5>
                     </div>
                     <div class="card-body p-4">
                         <form id="formPerfil">
                             <div class="mb-3">
-                                <label for="perfilNomeInput" class="form-label fw-semibold">Nome Completo</label>
-                                <input type="text" class="form-control form-control-lg" id="perfilNomeInput" required>
+                                <label for="perfilNomeInput" class="form-label">Nome Completo</label>
+                                <input type="text" class="form-control" id="perfilNomeInput" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="perfilTelefone" class="form-label fw-semibold">Telefone</label>
-                                <input type="tel" class="form-control form-control-lg" id="perfilTelefone">
+                            <div class="mb-4">
+                                <label for="perfilTelefone" class="form-label">Telefone</label>
+                                <input type="tel" class="form-control" id="perfilTelefone">
                             </div>
-                            <div id="perfilError" class="alert alert-danger d-none"></div>
-                            <div id="perfilSuccess" class="alert alert-success d-none"></div>
+                            <div id="perfilError" class="alert alert-danger d-none mb-3"></div>
+                            <div id="perfilSuccess" class="alert alert-success d-none mb-3"></div>
                             <button type="submit" class="btn btn-primary btn-lg">
                                 <i class="bi bi-check-lg me-2"></i>Guardar Alterações
                             </button>
@@ -92,8 +92,8 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3 mt-4">
-        <small>2026 MedAgenda - Sistema de Agendamento de Consultas</small>
+    <footer class="text-center">
+        <small>&copy; 2026 MedAgenda - Sistema de Agendamento de Consultas</small>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

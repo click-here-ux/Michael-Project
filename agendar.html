@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedAgendar - Agendar Consulta</title>
+    <title>MedAgenda - Agendar Consulta</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="dashboard.html">
-                <img src="images/logo.svg" alt="MedAgenda" width="30" height="30" class="me-2">
+            <a class="navbar-brand" href="dashboard.html">
+                <img src="images/logo.svg" alt="MedAgenda" width="32" height="32" class="me-2">
                 MedAgenda
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -50,21 +50,21 @@
     <!-- Agendar Content -->
     <section class="container py-4">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white border-0 py-3">
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-header py-3">
                         <h4 class="mb-0 fw-bold">
-                            <i class="bi bi-calendar-plus me-2 text-primary"></i>Agendar Nova Consulta
+                            <i class="bi bi-calendar-plus me-2"></i>Agendar Nova Consulta
                         </h4>
                     </div>
                     <div class="card-body p-4">
                         <form id="formAgendar">
                             <!-- Médico -->
                             <div class="mb-4">
-                                <label for="selectMedico" class="form-label fw-semibold">
+                                <label for="selectMedico" class="form-label">
                                     <i class="bi bi-person-badge me-1"></i>Selecionar Médico
                                 </label>
-                                <select class="form-select form-select-lg" id="selectMedico" required>
+                                <select class="form-select" id="selectMedico" required>
                                     <option value="">Escolha um médico...</option>
                                 </select>
                             </div>
@@ -72,16 +72,16 @@
                             <!-- Data e Hora -->
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
-                                    <label for="inputData" class="form-label fw-semibold">
+                                    <label for="inputData" class="form-label">
                                         <i class="bi bi-calendar me-1"></i>Data da Consulta
                                     </label>
-                                    <input type="date" class="form-control form-control-lg" id="inputData" required>
+                                    <input type="date" class="form-control" id="inputData" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="selectHora" class="form-label fw-semibold">
+                                    <label for="selectHora" class="form-label">
                                         <i class="bi bi-clock me-1"></i>Hora da Consulta
                                     </label>
-                                    <select class="form-select form-select-lg" id="selectHora" required>
+                                    <select class="form-select" id="selectHora" required>
                                         <option value="">Escolha a hora...</option>
                                         <option value="08:00">08:00</option>
                                         <option value="08:30">08:30</option>
@@ -104,10 +104,10 @@
 
                             <!-- Tipo de Consulta -->
                             <div class="mb-4">
-                                <label for="selectTipo" class="form-label fw-semibold">
+                                <label for="selectTipo" class="form-label">
                                     <i class="bi bi-clipboard-pulse me-1"></i>Tipo de Consulta
                                 </label>
-                                <select class="form-select form-select-lg" id="selectTipo" required>
+                                <select class="form-select" id="selectTipo" required>
                                     <option value="">Escolha o tipo...</option>
                                     <option value="Geral">Consulta Geral</option>
                                     <option value="Especialidade">Especialidade</option>
@@ -118,15 +118,15 @@
 
                             <!-- Notas -->
                             <div class="mb-4">
-                                <label for="inputNotas" class="form-label fw-semibold">
+                                <label for="inputNotas" class="form-label">
                                     <i class="bi bi-journal-text me-1"></i>Notas (opcional)
                                 </label>
                                 <textarea class="form-control" id="inputNotas" rows="3" placeholder="Descreva brevemente o motivo da consulta ou outras informações relevantes..."></textarea>
                             </div>
 
                             <!-- Alertas -->
-                            <div id="agendarError" class="alert alert-danger d-none"></div>
-                            <div id="agendarSuccess" class="alert alert-success d-none"></div>
+                            <div id="agendarError" class="alert alert-danger d-none mb-3"></div>
+                            <div id="agendarSuccess" class="alert alert-success d-none mb-3"></div>
 
                             <!-- Botões -->
                             <div class="d-flex gap-3">
@@ -145,8 +145,8 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3 mt-4">
-        <small>2026 MedAgenda - Sistema de Agendamento de Consultas</small>
+    <footer class="text-center">
+        <small>&copy; 2026 MedAgenda - Sistema de Agendamento de Consultas</small>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
