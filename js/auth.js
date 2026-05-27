@@ -37,27 +37,19 @@ async function getCurrentUser() {
 
 // Registar novo utilizador
 async function registerUser(nome, email, telefone, password) {
-    // 1. Criar conta no Auth
+    // 1. Criar conta no Auth com metadata
     const { data: authData, error: authError } = await supabaseClient.auth.signUp({
         email: email,
-        password: password
+        password: password,
+        options: {
+            data: {
+                nome: nome,
+                telefone: telefone
+            }
+        }
     });
 
     if (authError) throw authError;
-
-    // 2. Inserir dados na tabela utilizadores
-    if (authData.user) {
-        const { error: insertError } = await supabaseClient
-            .from('utilizadores')
-            .insert([{
-                id: authData.user.id,
-                nome: nome,
-                email: email,
-                telefone: telefone
-            }]);
-
-        if (insertError) throw insertError;
-    }
 
     return authData;
 }
