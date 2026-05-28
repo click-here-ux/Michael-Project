@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório - MedAgenda</title>
+    <style>
+        @page { margin: 2cm; size: A4; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #1a1a1a;
+            line-height: 1.6;
+            font-size: 11pt;
+            background: white;
+        }
+
+        /* Capa */
+        .capa {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            page-break-after: always;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            color: white;
+            margin: -2cm;
+            padding: 2cm;
+        }
+        .capa h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+        }
+        .capa .subtitulo {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+        .capa .info {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 2;
+        }
+        .capa .info strong { color: #94a3b8; }
+
+        /* Geral */
+        h2 {
+            font-size: 1.5rem;
+            color: #1e3a5f;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 0.3rem;
+            margin: 2rem 0 1rem;
+        }
+        h3 {
+            font-size: 1.15rem;
+            color: #334155;
+            margin: 1.2rem 0 0.5rem;
+        }
+        p { margin-bottom: 0.8rem; text-align: justify; }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.4rem; }
+
+        /* Tabelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 10pt;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: 700;
+            color: #1e3a5f;
+        }
+        tr:nth-child(even) { background: #f8fafc; }
+
+        /* Código */
+        code {
+            background: #f1f5f9;
+            padding: 0.15rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 9.5pt;
+            font-family: 'Consolas', monospace;
+            color: #6366f1;
+        }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 9pt;
+            overflow-x: auto;
+            margin: 0.8rem 0;
+            line-height: 1.5;
+        }
+
+        /* Diagrama */
+        .diagrama {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-family: 'Consolas', monospace;
+            font-size: 9.5pt;
+            line-height: 1.8;
+        }
+
+        /* Print */
+        @media print {
+            .capa { height: auto; min-height: 100vh; }
+            h2 { page-break-after: avoid; }
+            table, pre { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== CAPA ==================== -->
+<div class="capa">
+    <h1>MedAgenda</h1>
+    <div class="subtitulo">Sistema de Agendamento de Consultas Médicas</div>
+    <div class="info">
+        <strong>Projeto Académico</strong><br>
+        Desenvolvimento Web<br><br>
+        <strong>Tecnologias:</strong> HTML5, CSS3, JavaScript, Supabase, Bootstrap 5<br>
+        <strong>Plataforma:</strong> Web Progressiva (PWA) — Instalável em Android e iOS<br>
+        <strong>Deploy:</strong> Vercel<br><br>
+        Maio 2026
+    </div>
+</div>
+
+<!-- ==================== ÍNDICE ==================== -->
+<h2>Índice</h2>
+<ol>
+    <li>Introdução e Objetivos</li>
+    <li>Tecnologias Utilizadas</li>
+    <li>Arquitetura do Sistema</li>
+    <li>Base de Dados</li>
+    <li>Funcionalidades — Paciente</li>
+    <li>Funcionalidades — Médico (Painel Admin)</li>
+    <li>Progressive Web App (PWA)</li>
+    <li>Segurança</li>
+    <li>Design e Interface</li>
+    <li>Conclusão</li>
+</ol>
+
+<!-- ==================== 1. INTRODUÇÃO ==================== -->
+<h2>1. Introdução e Objetivos</h2>
+<p>O <strong>MedAgenda</strong> é uma aplicação web desenvolvida para o agendamento de consultas médicas. O sistema permite que pacientes se registem, escolham um médico, agendem consultas e acompanhem o estado das suas marcações.</p>
+<p>Por outro lado, os profissionais de saúde têm acesso a um painel administrativo privado onde podem visualizar as suas consultas, ver os dados dos pacientes e atualizar o estado das consultas (concluída, cancelada, reagendar).</p>
+
+<h3>Objetivos</h3>
+<ul>
+    <li>Simplificar o processo de agendamento de consultas médicas</li>
+    <li>Providenciar uma plataforma acessível via browser e instalável como aplicação móvel</li>
+    <li>Separação clara entre a interface pública (pacientes) e o painel administrativo (médicos)</li>
+    <li>Funcionamento offline através de tecnologias PWA</li>
+    <li>Design responsivo e intuitivo para todos os dispositivos</li>
+</ul>
+
+<!-- ==================== 2. TECNOLOGIAS ==================== -->
+<h2>2. Tecnologias Utilizadas</h2>
+
+<table>
+    <tr>
+        <th>Tecnologia</th>
+        <th>Função</th>
+        <th>Versão</th>
+    </tr>
+    <tr>
+        <td><strong>HTML5</strong></td>
+        <td>Estrutura das páginas</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td><strong>CSS3</strong></td>
+        <td>Estilos e tema escuro</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td><strong>JavaScript (ES6+)</strong></td>
+        <td>Lógica do cliente e interatividade</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td><strong>Bootstrap 5</strong></td>
+        <td>Framework CSS para componentes UI</td>
+        <td>5.3.3</td>
+    </tr>
+    <tr>
+        <td><strong>Bootstrap Icons</strong></td>
+        <td>Ícones vetoriais</td>
+        <td>1.11.3</td>
+    </tr>
+    <tr>
+        <td><strong>Supabase</strong></td>
+        <td>Backend-as-a-Service (Auth, Database, Storage)</td>
+        <td>JS v2</td>
+    </tr>
+    <tr>
+        <td><strong>PostgreSQL</strong></td>
+        <td>Base de dados (via Supabase)</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td><strong>Vercel</strong></td>
+        <td>Hospedagem e deploy</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td><strong>Service Worker</strong></td>
+        <td>Cache e funcionamento offline (PWA)</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td><strong>Web App Manifest</strong></td>
+        <td>Instalação como aplicação nativa</td>
+        <td>-</td>
+    </tr>
+</table>
+
+<!-- ==================== 3. ARQUITETURA ==================== -->
+<h2>3. Arquitetura do Sistema</h2>
+
+<p>O sistema segue uma arquitetura <strong>client-side rendering</strong> com backend serverless. Todo o processamento é feito no browser do utilizador, comunicando diretamente com o Supabase através da sua API REST.</p>
+
+<div class="diagrama">
+┌─────────────────────────────────────────────────────┐<br>
+│                    NAVEGADOR (Cliente)               │<br>
+│                                                      │<br>
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐           │<br>
+│  │ index.html│  │dashboard │  │agendar   │  ...      │<br>
+│  └────┬─────┘  └────┬─────┘  └────┬─────┘           │<br>
+│       │              │              │                 │<br>
+│  ┌────┴──────────────┴──────────────┴────┐           │<br
+│  │           JavaScript Modules          │           │<br>
+│  │  auth.js | consultas.js | medico.js   │           │<br>
+│  └────────────────┬─────────────────────┘           │<br>
+│                   │                                   │<br>
+│           ┌───────┴───────┐                          │<br>
+│           │ supabase-config│                          │<br>
+│           └───────┬───────┘                          │<br>
+└───────────────────┼──────────────────────────────────┘<br>
+                    │ HTTPS<br>
+┌───────────────────┼──────────────────────────────────┐<br>
+│            SUPABASE (Backend)                         │<br>
+│                   │                                   │<br>
+│  ┌────────────────┼────────────────┐                 │<br>
+│  │                │                │                 │<br>
+│  ▼                ▼                ▼                 │<br>
+│ Auth          PostgreSQL        Storage              │<br>
+│ (Login)       (Tabelas)         (Fotos)              │<br>
+└──────────────────────────────────────────────────────┘<br>
+</div>
+
+<h3>Estrutura de Ficheiros</h3>
+<table>
+    <tr><th>Ficheiro</th><th>Descrição</th></tr>
+    <tr><td><code>index.html</code></td><td>Página inicial — login/registo de pacientes + lista de médicos</td></tr>
+    <tr><td><code>dashboard.html</code></td><td>Painel do paciente — consultas, estatísticas</td></tr>
+    <tr><td><code>agendar.html</code></td><td>Formulário de agendamento de consultas</td></tr>
+    <tr><td><code>perfil.html</code></td><td>Perfil do paciente — editar dados pessoais</td></tr>
+    <tr><td><code>medico.html</code></td><td>Painel administrativo dos médicos (privado)</td></tr>
+    <tr><td><code>css/style.css</code></td><td>Folha de estilos principal — tema escuro</td></tr>
+    <tr><td><code>js/supabase-config.js</code></td><td>Configuração e inicialização do Supabase</td></tr>
+    <tr><td><code>js/auth.js</code></td><td>Módulo de autenticação (login, registo, logout)</td></tr>
+    <tr><td><code>js/consultas.js</code></td><td>CRUD de consultas e médicos</td></tr>
+    <tr><td><code>js/dashboard.js</code></td><td>Lógica do painel do paciente</td></tr>
+    <tr><td><code>js/agendar.js</code></td><td>Lógica do formulário de agendamento</td></tr>
+    <tr><td><code>js/perfil.js</code></td><td>Lógica de edição de perfil</td></tr>
+    <tr><td><code>js/medico.js</code></td><td>Lógica do painel dos médicos</td></tr>
+    <tr><td><code>js/install.js</code></td><td>Banner de instalação PWA</td></tr>
+    <tr><td><code>sw.js</code></td><td>Service Worker para cache offline</td></tr>
+    <tr><td><code>manifest.json</code></td><td>Manifesto da aplicação web</td></tr>
+</table>
+
+<!-- ==================== 4. BASE DE DADOS ==================== -->
+<h2>4. Base de Dados</h2>
+
+<p>A base de dados está alojada no Supabase (PostgreSQL) e é composta por 3 tabelas principais:</p>
+
+<h3>4.1 Tabela: utilizadores</h3>
+<table>
+    <tr><th>Coluna</th><th>Tipo</th><th>Descrição</th></tr>
+    <tr><td><code>id</code></td><td>UUID (PK)</td><td>ID do utilizador (ligado ao auth.users)</td></tr>
+    <tr><td><code>nome</code></td><td>TEXT</td><td>Nome completo do paciente</td></tr>
+    <tr><td><code>email</code></td><td>TEXT</td><td>Email do paciente</td></tr>
+    <tr><td><code>telefone</code></td><td>TEXT</td><td>Número de telefone</td></tr>
+    <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>Data de registo</td></tr>
+</table>
+
+<h3>4.2 Tabela: medicos</h3>
+<table>
+    <tr><th>Coluna</th><th>Tipo</th><th>Descrição</th></tr>
+    <tr><td><code>id</code></td><td>UUID (PK)</td><td>ID do médico</td></tr>
+    <tr><td><code>nome</code></td><td>TEXT</td><td>Nome do médico</td></tr>
+    <tr><td><code>especialidade</code></td><td>TEXT</td><td>Especialidade médica</td></tr>
+    <tr><td><code>foto_url</code></td><td>TEXT</td><td>URL da foto de perfil (Supabase Storage)</td></tr>
+    <tr><td><code>senha</code></td><td>TEXT</td><td>Senha de acesso ao painel admin</td></tr>
+    <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>Data de criação</td></tr>
+</table>
+
+<h3>4.3 Tabela: consultas</h3>
+<table>
+    <tr><th>Coluna</th><th>Tipo</th><th>Descrição</th></tr>
+    <tr><td><code>id</code></td><td>UUID (PK)</td><td>ID da consulta</td></tr>
+    <tr><td><code>utilizador_id</code></td><td>UUID (FK)</td><td>ID do paciente</td></tr>
+    <tr><td><code>medico_id</code></td><td>UUID (FK)</td><td>ID do médico</td></tr>
+    <tr><td><code>data</code></td><td>DATE</td><td>Data da consulta</td></tr>
+    <tr><td><code>hora</code></td><td>TIME</td><td>Hora da consulta</td></tr>
+    <tr><td><code>tipo</code></td><td>TEXT</td><td>Tipo: Geral, Especialidade, Urgência, Exame</td></tr>
+    <tr><td><code>estado</code></td><td>TEXT</td><td>Estado: agendada, concluída, cancelada</td></tr>
+    <tr><td><code>notas</code></td><td>TEXT</td><td>Observações do paciente ou médico</td></tr>
+    <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>Data de criação</td></tr>
+</table>
+
+<h3>4.4 Diagrama ER</h3>
+<div class="diagrama">
+┌──────────────┐       ┌──────────────────┐       ┌──────────────┐<br>
+│ utilizadores │       │     consultas    │       │    medicos   │<br>
+├──────────────┤       ├──────────────────┤       ├──────────────┤<br>
+│ id (PK)      │──┐    │ id (PK)          │   ┌──│ id (PK)      │<br>
+│ nome         │  └───>│ utilizador_id(FK)│   │  │ nome         │<br>
+│ email        │       │ medico_id (FK)   │<──┘  │ especialidade│<br>
+│ telefone     │       │ data             │       │ foto_url     │<br>
+│ created_at   │       │ hora             │       │ senha        │<br>
+└──────────────┘       │ tipo             │       │ created_at   │<br>
+                       │ estado           │       └──────────────┘<br>
+                       │ notas            │<br>
+                       │ created_at       │<br>
+                       └──────────────────┘<br>
+</div>
+
+<h3>4.5 Storage</h3>
+<p>O Supabase Storage é utilizado para armazenar as fotos de perfil dos médicos. É criado um bucket público chamado <code>fotos-medicos</code> com políticas de acesso que permitem upload, download, atualização e eliminação.</p>
+
+<!-- ==================== 5. PACIENTE ==================== -->
+<h2>5. Funcionalidades — Paciente</h2>
+
+<h3>5.1 Registo e Login</h3>
+<p>O paciente pode criar uma conta fornecendo o seu nome, email, telefone e password. O sistema utiliza a autenticação do Supabase, que cria automaticamente o perfil na tabela <code>utilizadores</code> através de um trigger.</p>
+
+<h3>5.2 Agendamento de Consultas</h3>
+<p>Na página de agendamento, o paciente pode:</p>
+<ul>
+    <li>Selecionar um médico da lista (carregada da base de dados)</li>
+    <li>Escolher a data da consulta (a partir do dia atual)</li>
+    <li>Selecionar um horário disponível (intervalos de 30 minutos, das 08:00 às 17:00)</li>
+    <li>Escolher o tipo de consulta (Geral, Especialidade, Urgência, Exame)</li>
+    <li>Adicionar notas ou observações opcionais</li>
+</ul>
+
+<h3>5.3 Painel do Paciente (Dashboard)</h3>
+<p>O dashboard apresenta:</p>
+<ul>
+    <li>3 cards de estatísticas: Consultas Agendadas, Concluídas e Canceladas</li>
+    <li>Tabela com todas as consultas, com filtros (Todas, Agendadas, Canceladas)</li>
+    <li>Ações: Editar consulta e Cancelar consulta</li>
+</ul>
+
+<h3>5.4 Perfil do Paciente</h3>
+<p>O paciente pode editar o seu nome e telefone. O email não é editável pois é utilizado para autenticação.</p>
+
+<!-- ==================== 6. MÉDICO ==================== -->
+<h2>6. Funcionalidades — Médico (Painel Admin)</h2>
+
+<p>O painel dos médicos é uma área privada, acessível através de um URL específico (<code>/medico.html</code>) e de um botão discreto no canto inferior direito do site público.</p>
+
+<h3>6.1 Login</h3>
+<p>O médico seleciona o seu nome numa lista dropdown e insere a sua senha de acesso (por defeito: <code>1234</code>). A autenticação é feita diretamente contra a tabela <code>medicos</code>, sem utilizar o sistema de autenticação do Supabase.</p>
+
+<h3>6.2 Dashboard do Médico</h3>
+<p>O painel apresenta:</p>
+<ul>
+    <li><strong>Estatísticas:</strong> Consultas Hoje, Próximas, Total</li>
+    <li><strong>As Minhas Consultas:</strong> Lista em cards com dados completos do paciente:
+        <ul>
+            <li>Nome do paciente</li>
+            <li>Email</li>
+            <li>Telefone</li>
+            <li>Data e hora</li>
+            <li>Tipo de consulta</li>
+            <li>Estado atual</li>
+            <li>Notas/observações</li>
+        </ul>
+    </li>
+    <li><strong>Filtros:</strong> Todas, Hoje, Agendadas, Concluídas, Canceladas</li>
+    <li><strong>Ações:</strong>
+        <ul>
+            <li><strong>Responder:</strong> Abre modal para atualizar estado (Concluída, Cancelada, Reagendar) e adicionar notas</li>
+            <li><strong>Cancelar:</strong> Cancelamento rápido de consulta</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>6.3 Edição de Perfil</h3>
+<p>O médico pode:</p>
+<ul>
+    <li>Alterar o seu nome</li>
+    <li>Fazer upload de uma foto de perfil (guardada no Supabase Storage)</li>
+    <li>Remover a foto de perfil</li>
+    <li>Alterar a senha de acesso</li>
+</ul>
+
+<!-- ==================== 7. PWA ==================== -->
+<h2>7. Progressive Web App (PWA)</h2>
+
+<p>O MedAgenda foi convertido numa Progressive Web App, permitindo que seja instalado como uma aplicação nativa em dispositivos Android e iOS.</p>
+
+<h3>7.1 Componentes PWA</h3>
+<table>
+    <tr><th>Componente</th><th>Ficheiro</th><th>Função</th></tr>
+    <tr><td>Web App Manifest</td><td><code>manifest.json</code></td><td>Define nome, ícones, cores e comportamento da app</td></tr>
+    <tr><td>Service Worker</td><td><code>sw.js</code></td><td>Cache de recursos para funcionamento offline</td></tr>
+    <tr><td>Install Banner</td><td><code>js/install.js</code></td><td>Banner automático de instalação</td></tr>
+    <tr><td>Ícones</td><td><code>icons/</code></td><td>Ícones da app (192x192 e 512x512)</td></tr>
+</table>
+
+<h3>7.2 Estratégia de Cache</h3>
+<p>O Service Worker utiliza a estratégia <strong>Cache First</strong>: todos os recursos estáticos (HTML, CSS, JS) são guardados em cache na primeira visita. Nas visitas seguintes, os recursos são servidos do cache, garantindo funcionamento offline. Pedidos à API do Supabase são sempre feitos diretamente à rede.</p>
+
+<h3>7.3 Instalação</h3>
+<p>Quando o utilizador acede ao site no navegador móvel, um banner aparece automaticamente após 2 segundos oferecendo a opção de instalar a aplicação. Após a instalação, o MedAgenda aparece como um ícone no ecrã inicial, abrindo em modo standalone (sem barra de endereço do navegador).</p>
+
+<!-- ==================== 8. SEGURANÇA ==================== -->
+<h2>8. Segurança</h2>
+
+<h3>8.1 Autenticação</h3>
+<ul>
+    <li><strong>Pacientes:</strong> Autenticação via Supabase Auth (email + password com hash seguro)</li>
+    <li><strong>Médicos:</strong> Autenticação simples (nome + senha contra a tabela medicos)</li>
+</ul>
+
+<h3>8.2 Row Level Security (RLS)</h3>
+<ul>
+    <li><strong>utilizadores:</strong> RLS desativado (médicos precisam de aceder aos dados dos pacientes)</li>
+    <li><strong>consultas:</strong> RLS desativado para leitura (médicos veem todas as suas consultas); escrita restrita ao utilizador autenticado</li>
+    <li><strong>medicos:</strong> RLS desativado (acesso público à lista para seleção no agendamento)</li>
+</ul>
+
+<h3>8.3 Supabase Storage</h3>
+<p>O bucket <code>fotos-medicos</code> tem políticas que permitem operações de leitura, escrita, atualização e eliminação. As fotos são públicas para visualização.</p>
+
+<!-- ==================== 9. DESIGN ==================== -->
+<h2>9. Design e Interface</h2>
+
+<h3>9.1 Tema</h3>
+<p>O sistema utiliza um tema escuro profissional com as seguintes características:</p>
+<ul>
+    <li><strong>Fundo:</strong> Tons de preto/cinzento escuro (#09090b a #18181b)</li>
+    <li><strong>Cor principal:</strong> Roxo/Indigo (#6366f1)</li>
+    <li><strong>Texto:</strong> Branco (#fafafa) com variações de cinzento para texto secundário</li>
+    <li><strong>Badges de estado:</strong> Azul (agendada), Verde (concluída), Vermelho (cancelada)</li>
+</ul>
+
+<h3>9.2 Responsividade</h3>
+<p>O layout é totalmente responsivo, adaptando-se a ecrãs desde telemóveis (320px) até desktops (1920px+). São utilizados breakpoints do Bootstrap 5 para reorganizar os elementos conforme o tamanho do ecrã.</p>
+
+<h3>9.3 Componentes UI</h3>
+<ul>
+    <li>Cards para estatísticas e consultas</li>
+    <li>Tabelas responsivas com filtros</li>
+    <li>Modais para edição e confirmação</li>
+    <li>Badges coloridos para estados</li>
+    <li>Botões de ação com ícones</li>
+    <li>Formulários com validação</li>
+    <li>Alertas de sucesso/erro</li>
+</ul>
+
+<!-- ==================== 10. CONCLUSÃO ==================== -->
+<h2>10. Conclusão</h2>
+
+<p>O MedAgenda é uma solução completa e funcional para o agendamento de consultas médicas. O sistema cumpre os objetivos propostos:</p>
+
+<ul>
+    <li><strong>Simplicidade:</strong> Interface intuitiva que permite agendar uma consulta em poucos cliques</li>
+    <li><strong>Acessibilidade:</strong> Disponível em qualquer dispositivo com um browser, e instalável como aplicação móvel</li>
+    <li><strong>Separação de responsabilidades:</strong> Interface pública para pacientes e painel administrativo privado para médicos</li>
+    <li><strong>Funcionalidade offline:</strong> Graças à implementação PWA, o sistema funciona mesmo sem ligação à internet</li>
+    <li><strong>Tecnologias modernas:</strong> Utilização de frameworks e serviços atuais que garantem escalabilidade e manutenção facilitada</li>
+</ul>
+
+<p>O projeto demonstra a viabilidade de criar aplicações web completas utilizando apenas tecnologias do lado do cliente (HTML, CSS, JavaScript) combinadas com serviços Backend-as-a-Service como o Supabase, eliminando a necessidade de servidores próprios.</p>
+
+</body>
+</html>
