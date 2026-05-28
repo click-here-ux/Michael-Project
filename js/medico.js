@@ -36,11 +36,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Carregar médicos no select de login
 async function carregarMedicosLogin() {
     try {
-        const medicos = await getMedicos();
+        // Query direta para debug
+        const { data: medicos, error } = await supabaseClient
+            .from('medicos')
+            .select('*')
+            .order('nome');
+
+        console.log('Médicos encontrados:', medicos);
+        if (error) console.error('Erro Supabase:', error);
+
         const select = document.getElementById('selectMedicoLogin');
-        medicos.forEach(m => {
-            select.innerHTML += `<option value="${m.id}">${m.nome} - ${m.especialidade}</option>`;
-        });
+        if (medicos && medicos.length > 0) {
+            medicos.forEach(m => {
+                select.innerHTML += `<option value="${m.id}">${m.nome} - ${m.especialidade}</option>`;
+            });
+        } else {
+            select.innerHTML += '<option value="">Nenhum médico encontrado</option>';
+        }
     } catch (error) {
         console.error('Erro ao carregar médicos:', error);
     }
