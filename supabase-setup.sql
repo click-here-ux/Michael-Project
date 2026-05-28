@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS medicos (
     nome TEXT NOT NULL,
     especialidade TEXT NOT NULL,
     foto_url TEXT,
+    senha TEXT NOT NULL DEFAULT '1234',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -70,17 +71,18 @@ CREATE POLICY "Todos podem ver médicos"
     USING (true);
 
 -- Políticas para consultas
-CREATE POLICY "Utilizadores podem ver as próprias consultas"
+-- Nota: médicos acedem via painel admin (sessão), pacientes via auth
+CREATE POLICY "Todos podem ver consultas"
     ON consultas FOR SELECT
-    USING (auth.uid() = utilizador_id);
+    USING (true);
 
-CREATE POLICY "Utilizadores podem criar consultas"
+CREATE POLICY "Utilizadores autenticados podem criar consultas"
     ON consultas FOR INSERT
     WITH CHECK (auth.uid() = utilizador_id);
 
-CREATE POLICY "Utilizadores podem atualizar as próprias consultas"
+CREATE POLICY "Todos podem atualizar consultas"
     ON consultas FOR UPDATE
-    USING (auth.uid() = utilizador_id);
+    USING (true);
 
 CREATE POLICY "Utilizadores podem eliminar as próprias consultas"
     ON consultas FOR DELETE
@@ -90,15 +92,15 @@ CREATE POLICY "Utilizadores podem eliminar as próprias consultas"
 -- 4. INSERIR DADOS DE EXEMPLO (MÉDICOS)
 -- =============================================
 
-INSERT INTO medicos (nome, especialidade, foto_url) VALUES
-    ('Dr. João Silva', 'Medicina Geral', 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&h=200&fit=crop&crop=face'),
-    ('Dra. Maria Santos', 'Cardiologia', 'https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=200&h=200&fit=crop&crop=face'),
-    ('Dr. Pedro Oliveira', 'Dermatologia', 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&h=200&fit=crop&crop=face'),
-    ('Dra. Ana Costa', 'Pediatria', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face'),
-    ('Dr. Manuel Pereira', 'Ortopedia', 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=200&h=200&fit=crop&crop=face'),
-    ('Dra. Sofia Ferreira', 'Ginecologia', 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=200&h=200&fit=crop&crop=face'),
-    ('Dr. Ricardo Almeida', 'Oftalmologia', 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&h=200&fit=crop&crop=face'),
-    ('Dra. Catarina Mendes', 'Neurologia', 'https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=200&h=200&fit=crop&crop=face');
+INSERT INTO medicos (nome, especialidade, foto_url, senha) VALUES
+    ('Dr. João Silva', 'Medicina Geral', 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&h=200&fit=crop&crop=face', '1234'),
+    ('Dra. Maria Santos', 'Cardiologia', 'https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=200&h=200&fit=crop&crop=face', '1234'),
+    ('Dr. Pedro Oliveira', 'Dermatologia', 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&h=200&fit=crop&crop=face', '1234'),
+    ('Dra. Ana Costa', 'Pediatria', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face', '1234'),
+    ('Dr. Manuel Pereira', 'Ortopedia', 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=200&h=200&fit=crop&crop=face', '1234'),
+    ('Dra. Sofia Ferreira', 'Ginecologia', 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=200&h=200&fit=crop&crop=face', '1234'),
+    ('Dr. Ricardo Almeida', 'Oftalmologia', 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&h=200&fit=crop&crop=face', '1234'),
+    ('Dra. Catarina Mendes', 'Neurologia', 'https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=200&h=200&fit=crop&crop=face', '1234');
 
 -- =============================================
 -- 5. CRIAR ÍNDICES PARA PERFORMANCE
