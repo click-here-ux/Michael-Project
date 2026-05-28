@@ -1,24 +1,22 @@
 /* =============================================
-   MedAgenda - Estilos Simples e Profissionais
+   MedAgenda - Tema Escuro Profissional
    ============================================= */
 
 :root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --primary-light: #dbeafe;
-    --success: #16a34a;
-    --danger: #dc2626;
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --primary-glow: rgba(59, 130, 246, 0.25);
+    --success: #22c55e;
+    --danger: #ef4444;
     --warning: #f59e0b;
-    --dark: #1e293b;
-    --gray-700: #334155;
-    --gray-600: #475569;
-    --gray-500: #64748b;
-    --gray-400: #94a3b8;
-    --gray-300: #cbd5e1;
-    --gray-200: #e2e8f0;
-    --gray-100: #f1f5f9;
+    --bg: #0f172a;
+    --bg-card: #1e293b;
+    --bg-input: #334155;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
     --white: #ffffff;
-    --bg: #f8fafc;
 }
 
 * {
@@ -33,15 +31,14 @@ body {
     display: flex;
     flex-direction: column;
     background-color: var(--bg);
-    color: var(--dark);
+    color: var(--text);
 }
 
 /* Navbar */
 .navbar {
-    background-color: var(--white) !important;
-    border-bottom: 1px solid var(--gray-200);
+    background-color: var(--bg-card) !important;
+    border-bottom: 1px solid var(--border);
     padding: 0.75rem 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .navbar-brand {
@@ -53,7 +50,7 @@ body {
 }
 
 .nav-link {
-    color: var(--gray-600) !important;
+    color: var(--text-muted) !important;
     font-weight: 500;
     transition: color 0.2s;
     padding: 0.5rem 1rem !important;
@@ -61,12 +58,12 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--primary) !important;
+    color: var(--white) !important;
 }
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
     padding: 4rem 0;
     color: var(--white);
 }
@@ -81,7 +78,7 @@ body {
 
 .hero-subtitle {
     font-size: 1.15rem;
-    color: rgba(255,255,255,0.85);
+    color: var(--text-muted);
     max-width: 500px;
 }
 
@@ -89,7 +86,7 @@ body {
     max-width: 100%;
     height: auto;
     border-radius: 1rem;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
 /* Feature Badges */
@@ -97,13 +94,12 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
     padding: 0.6rem 1.1rem;
     border-radius: 2rem;
     font-size: 0.9rem;
-    color: var(--white);
-    backdrop-filter: blur(10px);
+    color: var(--primary);
 }
 
 .feature-badge i {
@@ -112,23 +108,23 @@ body {
 
 /* Cards */
 .card {
-    background-color: var(--white);
-    border: 1px solid var(--gray-200);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: 0.75rem;
-    transition: box-shadow 0.2s;
+    transition: border-color 0.2s;
 }
 
 .card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-color: var(--primary);
 }
 
 .card-header {
-    background-color: var(--white);
-    border-bottom: 1px solid var(--gray-200);
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border);
 }
 
 .card-body {
-    color: var(--gray-700);
+    color: var(--text);
 }
 
 /* Stat Icons */
@@ -143,23 +139,23 @@ body {
 }
 
 .stat-icon.agendadas {
-    background: var(--primary-light);
+    background: rgba(59, 130, 246, 0.15);
     color: var(--primary);
 }
 
 .stat-icon.concluidas {
-    background: #dcfce7;
+    background: rgba(34, 197, 94, 0.15);
     color: var(--success);
 }
 
 .stat-icon.canceladas {
-    background: #fef2f2;
+    background: rgba(239, 68, 68, 0.15);
     color: var(--danger);
 }
 
 /* Table */
 .table {
-    color: var(--gray-700);
+    color: var(--text);
     margin-bottom: 0;
 }
 
@@ -168,20 +164,20 @@ body {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: var(--gray-500);
-    background-color: var(--gray-100);
-    border-bottom: 1px solid var(--gray-200);
+    color: var(--text-dim);
+    background-color: rgba(0,0,0,0.2);
+    border-bottom: 1px solid var(--border);
     padding: 0.75rem 1rem;
 }
 
 .table td {
     vertical-align: middle;
     padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--border);
 }
 
 .table-hover tbody tr:hover {
-    background-color: var(--gray-100);
+    background-color: rgba(59, 130, 246, 0.08);
 }
 
 /* Status Badges */
@@ -195,18 +191,18 @@ body {
 }
 
 .badge-agendada {
-    background-color: var(--primary-light);
-    color: var(--primary);
+    background-color: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
 }
 
 .badge-cancelada {
-    background-color: #fef2f2;
-    color: var(--danger);
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #f87171;
 }
 
 .badge-concluida {
-    background-color: #dcfce7;
-    color: var(--success);
+    background-color: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
 }
 
 /* Profile Avatar */
@@ -214,7 +210,7 @@ body {
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    background: var(--primary-light);
+    background: rgba(59, 130, 246, 0.15);
     color: var(--primary);
     display: flex;
     align-items: center;
@@ -226,9 +222,9 @@ body {
 /* Forms */
 .form-control,
 .form-select {
-    background-color: var(--white);
-    border: 1px solid var(--gray-300);
-    color: var(--dark);
+    background-color: var(--bg-input);
+    border: 1px solid var(--border);
+    color: var(--text);
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     transition: border-color 0.2s;
@@ -236,19 +232,19 @@ body {
 
 .form-control:focus,
 .form-select:focus {
-    background-color: var(--white);
+    background-color: var(--bg-input);
     border-color: var(--primary);
-    color: var(--dark);
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    color: var(--text);
+    box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
 .form-control::placeholder {
-    color: var(--gray-400);
+    color: var(--text-dim);
 }
 
 .form-label {
     font-weight: 600;
-    color: var(--gray-700);
+    color: var(--text-muted);
     margin-bottom: 0.4rem;
     font-size: 0.9rem;
 }
@@ -279,13 +275,13 @@ body {
 }
 
 .btn-success:hover {
-    background: #15803d;
+    background: #16a34a;
     color: var(--white);
 }
 
 .btn-outline-primary {
-    border-color: var(--gray-300);
-    color: var(--gray-600);
+    border-color: var(--border);
+    color: var(--text-muted);
 }
 
 .btn-outline-primary:hover {
@@ -294,24 +290,30 @@ body {
     border-color: var(--primary);
 }
 
+.btn-outline-primary.active {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
 .btn-outline-secondary {
-    border-color: var(--gray-300);
-    color: var(--gray-600);
+    border-color: var(--border);
+    color: var(--text-muted);
 }
 
 .btn-outline-secondary:hover {
-    background: var(--gray-100);
-    color: var(--dark);
-    border-color: var(--gray-300);
+    background: var(--bg-input);
+    color: var(--text);
+    border-color: var(--border);
 }
 
 .btn-outline-danger {
-    border-color: var(--gray-300);
-    color: var(--gray-500);
+    border-color: var(--border);
+    color: var(--text-dim);
 }
 
 .btn-outline-danger:hover {
-    background: #fef2f2;
+    background: rgba(239, 68, 68, 0.15);
     color: var(--danger);
     border-color: var(--danger);
 }
@@ -323,7 +325,7 @@ body {
 }
 
 .btn-danger:hover {
-    background: #b91c1c;
+    background: #dc2626;
     color: var(--white);
 }
 
@@ -332,8 +334,8 @@ body {
     border-radius: 0.5rem;
     font-weight: 600;
     padding: 0.75rem 1.25rem;
-    color: var(--gray-500);
-    background: var(--gray-100);
+    color: var(--text-dim);
+    background: var(--bg-input);
     margin: 0.2rem;
 }
 
@@ -342,19 +344,28 @@ body {
     color: var(--white);
 }
 
+.nav-pills .nav-link:hover:not(.active) {
+    color: var(--text);
+}
+
 /* Modal */
 .modal-content {
-    background-color: var(--white);
-    border: 1px solid var(--gray-200);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: 0.75rem;
+    color: var(--text);
 }
 
 .modal-header {
-    border-bottom: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--border);
 }
 
 .modal-footer {
-    border-top: 1px solid var(--gray-200);
+    border-top: 1px solid var(--border);
+}
+
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
 }
 
 /* Alerts */
@@ -364,13 +375,13 @@ body {
 }
 
 .alert-danger {
-    background-color: #fef2f2;
-    color: var(--danger);
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
 }
 
 .alert-success {
-    background-color: #dcfce7;
-    color: #166534;
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
 }
 
 /* Doctors Section */
@@ -384,7 +395,7 @@ body {
     height: 90px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--gray-200);
+    border: 3px solid var(--border);
     margin-bottom: 0.75rem;
     transition: border-color 0.2s;
 }
@@ -394,13 +405,13 @@ body {
 }
 
 .doctor-card h6 {
-    color: var(--dark);
+    color: var(--white);
     font-weight: 700;
     margin-bottom: 0.25rem;
 }
 
 .doctor-card small {
-    color: var(--gray-500);
+    color: var(--text-muted);
 }
 
 /* Filter Buttons */
@@ -413,14 +424,14 @@ body {
 
 /* Footer */
 footer {
-    background-color: var(--white) !important;
-    border-top: 1px solid var(--gray-200);
+    background-color: var(--bg-card) !important;
+    border-top: 1px solid var(--border);
     padding: 1.25rem 0;
     margin-top: auto;
 }
 
 footer small {
-    color: var(--gray-500);
+    color: var(--text-dim);
 }
 
 /* Action Buttons */
@@ -432,9 +443,9 @@ footer small {
     align-items: center;
     justify-content: center;
     border-radius: 0.4rem;
-    background: var(--gray-100);
-    border: 1px solid var(--gray-200);
-    color: var(--gray-500);
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
     transition: all 0.2s;
 }
 
@@ -463,6 +474,24 @@ footer small {
 
 .fade-in {
     animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-dim);
 }
 
 /* Responsive */
