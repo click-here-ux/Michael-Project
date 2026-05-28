@@ -375,9 +375,15 @@ async function handleFotoUpload(e) {
 
         const fotoUrl = urlData.publicUrl;
 
-        // Atualizar preview e campo URL
+        // Atualizar preview e campo hidden
         document.getElementById('previewFoto').src = fotoUrl;
         document.getElementById('editFotoUrl').value = fotoUrl;
+
+        // Guardar automaticamente na base de dados
+        await supabaseClient
+            .from('medicos')
+            .update({ foto_url: fotoUrl })
+            .eq('id', medicoAtualId);
 
     } catch (error) {
         console.error('Erro no upload:', error);
