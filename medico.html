@@ -161,8 +161,11 @@
                                     </label>
                                     <input type="file" id="uploadFoto" accept="image/*" style="display:none;">
                                 </div>
-                                <div class="mt-2">
+                                <div class="mt-2 d-flex align-items-center justify-content-center gap-2">
                                     <small style="color:var(--text-muted);">Clique na câmara para mudar a foto</small>
+                                    <button type="button" id="btnRemoverFoto" class="btn btn-sm btn-outline-danger d-none" onclick="removerFoto()">
+                                        <i class="bi bi-trash me-1"></i>Remover
+                                    </button>
                                 </div>
                             </div>
 

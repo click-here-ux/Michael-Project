@@ -333,6 +333,8 @@ window.cancelarRapido = async function(id) {
 
 // ========== PERFIL ==========
 
+const FOTO_PADRAO = 'https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=200&h=200&fit=crop&crop=face';
+
 async function carregarPerfilMedico(medicoId) {
     try {
         const { data, error } = await supabaseClient
@@ -345,13 +347,44 @@ async function carregarPerfilMedico(medicoId) {
 
         document.getElementById('editNomeMedico').value = data.nome || '';
         document.getElementById('editFotoUrl').value = data.foto_url || '';
-        if (data.foto_url) {
+
+        if (data.foto_url && data.foto_url !== '') {
             document.getElementById('previewFoto').src = data.foto_url;
+            document.getElementById('btnRemoverFoto').classList.remove('d-none');
+        } else {
+            document.getElementById('previewFoto').src = FOTO_PADRAO;
+            document.getElementById('btnRemoverFoto').classList.add('d-none');
         }
     } catch (error) {
         console.error('Erro ao carregar perfil:', error);
     }
 }
+
+window.removerFoto = async function() {
+    if (!confirm('Remover a foto de perfil?')) return;
+
+    try {
+        // Apagar do Storage
+        await supabaseClient.storage
+            .from('fotos-medicos')
+            .remove([`foto-${medicoAtualId}`]);
+
+        // Atualizar na base de dados
+        await supabaseClient
+            .from('medicos')
+            .update({ foto_url: '' })
+            .eq('id', medicoAtualId);
+
+        // Atualizar interface
+        document.getElementById('previewFoto').src = FOTO_PADRAO;
+        document.getElementById('editFotoUrl').value = '';
+        document.getElementById('btnRemoverFoto').classList.add('d-none');
+
+    } catch (error) {
+        console.error('Erro ao remover foto:', error);
+        alert('Erro ao remover foto: ' + error.message);
+    }
+};
 
 async function handleFotoUpload(e) {
     const file = e.target.files[0];
@@ -386,6 +419,7 @@ async function handleFotoUpload(e) {
         // Atualizar preview e campo hidden
         document.getElementById('previewFoto').src = fotoUrl;
         document.getElementById('editFotoUrl').value = fotoUrl;
+        document.getElementById('btnRemoverFoto').classList.remove('d-none');
 
         // Guardar na base de dados
         await supabaseClient
