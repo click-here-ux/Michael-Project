@@ -358,28 +358,36 @@ async function handleFotoUpload(e) {
     if (!file) return;
 
     try {
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${medicoAtualId}.${fileExt}`;
+        // Nome fixo — sempre sobrescreve a foto anterior
+        const fileName = `foto-${medicoAtualId}`;
 
-        // Upload para Supabase Storage
+        // Apagar foto anterior se existir
+        await supabaseClient.storage
+            .from('fotos-medicos')
+            .remove([fileName]);
+
+        // Upload da nova foto
         const { data, error } = await supabaseClient.storage
             .from('fotos-medicos')
-            .upload(fileName, file, { upsert: true });
+            .upload(fileName, file, {
+                cacheControl: '0',
+                contentType: file.type
+            });
 
         if (error) throw error;
 
-        // Obter URL pública
+        // Obter URL pública com timestamp para forçar refresh
         const { data: urlData } = supabaseClient.storage
             .from('fotos-medicos')
             .getPublicUrl(fileName);
 
-        const fotoUrl = urlData.publicUrl;
+        const fotoUrl = urlData.publicUrl + '?t=' + Date.now();
 
         // Atualizar preview e campo hidden
         document.getElementById('previewFoto').src = fotoUrl;
         document.getElementById('editFotoUrl').value = fotoUrl;
 
-        // Guardar automaticamente na base de dados
+        // Guardar na base de dados
         await supabaseClient
             .from('medicos')
             .update({ foto_url: fotoUrl })
