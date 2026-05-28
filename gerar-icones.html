@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head><title>Gerar Ícones MedAgenda</title></head>
+<body>
+<h2>Gerar Ícones para PWA</h2>
+<p>Clica no botão para descarregar os ícones:</p>
+<button onclick="gerarIcone(192)">Descarregar Ícone 192px</button>
+<button onclick="gerarIcone(512)">Descarregar Ícone 512px</button>
+
+<script>
+function gerarIcone(size) {
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+
+    // Fundo roxo
+    ctx.fillStyle = '#6366f1';
+    ctx.beginPath();
+    ctx.roundRect(0, 0, size, size, size * 0.15);
+    ctx.fill();
+
+    // Ícone de coração/pulso
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = size * 0.06;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    const centerX = size / 2;
+    const centerY = size / 2;
+    const scale = size / 512;
+
+    // Desenhar coração
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY + 80 * scale);
+    ctx.bezierCurveTo(
+        centerX - 120 * scale, centerY - 20 * scale,
+        centerX - 80 * scale, centerY - 100 * scale,
+        centerX, centerY - 40 * scale
+    );
+    ctx.bezierCurveTo(
+        centerX + 80 * scale, centerY - 100 * scale,
+        centerX + 120 * scale, centerY - 20 * scale,
+        centerX, centerY + 80 * scale
+    );
+    ctx.stroke();
+
+    // Linha de pulso
+    ctx.beginPath();
+    ctx.moveTo(centerX - 100 * scale, centerY);
+    ctx.lineTo(centerX - 40 * scale, centerY);
+    ctx.lineTo(centerX - 15 * scale, centerY - 50 * scale);
+    ctx.lineTo(centerX + 15 * scale, centerY + 50 * scale);
+    ctx.lineTo(centerX + 40 * scale, centerY);
+    ctx.lineTo(centerX + 100 * scale, centerY);
+    ctx.stroke();
+
+    // Download
+    const link = document.createElement('a');
+    link.download = `icon-${size}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+</script>
+
+<p style="margin-top:20px;">Depois de descarregar, coloca os ficheiros na pasta <code>icons/</code> do projeto.</p>
+</body>
+</html>
