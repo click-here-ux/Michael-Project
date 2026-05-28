@@ -89,7 +89,24 @@ CREATE POLICY "Utilizadores podem eliminar as próprias consultas"
     USING (auth.uid() = utilizador_id);
 
 -- =============================================
--- 4. INSERIR DADOS DE EXEMPLO (MÉDICOS)
+-- 4. STORAGE PARA FOTOS DOS MÉDICOS
+-- =============================================
+
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('fotos-medicos', 'fotos-medicos', true)
+ON CONFLICT (id) DO NOTHING;
+
+CREATE POLICY "Fotos públicas" ON storage.objects
+    FOR SELECT USING (bucket_id = 'fotos-medicos');
+
+CREATE POLICY "Médicos podem fazer upload" ON storage.objects
+    FOR INSERT WITH CHECK (bucket_id = 'fotos-medicos');
+
+CREATE POLICY "Médicos podem atualizar fotos" ON storage.objects
+    FOR UPDATE USING (bucket_id = 'fotos-medicos');
+
+-- =============================================
+-- 5. INSERIR DADOS DE EXEMPLO (MÉDICOS)
 -- =============================================
 
 INSERT INTO medicos (nome, especialidade, foto_url, senha) VALUES

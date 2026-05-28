@@ -16,22 +16,13 @@
             <a class="navbar-brand" href="medico.html">
                 <i class="bi bi-heart-pulse me-2"></i>MedAgenda
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto" id="navMedico" style="display:none;">
-                    <li class="nav-item">
-                        <span class="nav-link active" id="navMedicoNome">
-                            <i class="bi bi-person-badge me-1"></i><span id="medicoName">Médico</span>
-                        </span>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link btn btn-link" id="btnLogoutMedico">
-                            <i class="bi bi-box-arrow-right me-1"></i>Sair
-                        </button>
-                    </li>
-                </ul>
+            <div class="d-flex align-items-center" id="navMedico" style="display:none;">
+                <span class="me-3" style="color:var(--text-muted);font-size:0.9rem;">
+                    <i class="bi bi-person-badge me-1"></i><span id="medicoName">Médico</span>
+                </span>
+                <button class="btn btn-outline-secondary btn-sm" id="btnLogoutMedico">
+                    <i class="bi bi-box-arrow-right me-1"></i>Sair
+                </button>
             </div>
         </div>
     </nav>
@@ -39,15 +30,15 @@
     <!-- Login Section -->
     <section id="loginSection" class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-5 col-lg-4">
                 <div class="card">
                     <div class="card-body p-4 p-md-5">
                         <div class="text-center mb-4">
-                            <div style="width:70px;height:70px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1rem;">
+                            <div style="width:65px;height:65px;border-radius:50%;background:var(--primary-glow);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1rem;">
                                 <i class="bi bi-person-badge"></i>
                             </div>
-                            <h4 class="fw-bold">Área do Médico</h4>
-                            <p style="color:var(--gray-500);font-size:0.9rem;">Aceda à sua conta para gerir consultas</p>
+                            <h4 class="fw-bold mb-1">Área do Médico</h4>
+                            <p style="color:var(--text-muted);font-size:0.85rem;">Aceda para gerir as suas consultas</p>
                         </div>
                         <form id="formLoginMedico">
                             <div class="mb-3">
@@ -61,7 +52,7 @@
                                 <input type="password" class="form-control" id="inputSenha" placeholder="Digite a sua senha" required>
                             </div>
                             <div id="loginMedicoError" class="alert alert-danger d-none mb-3"></div>
-                            <button type="submit" class="btn btn-primary w-100 btn-lg">
+                            <button type="submit" class="btn btn-primary w-100">
                                 <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
                             </button>
                         </form>
@@ -71,135 +62,163 @@
         </div>
     </section>
 
-    <!-- Dashboard Section (hidden until login) -->
+    <!-- Dashboard Section -->
     <section id="dashboardSection" class="container py-4" style="display:none;">
+
         <!-- Stats -->
         <div class="row g-3 mb-4">
-            <div class="col-md-4">
+            <div class="col-4">
                 <div class="card h-100">
-                    <div class="card-body text-center p-4">
-                        <div class="stat-icon agendadas mx-auto mb-3">
-                            <i class="bi bi-calendar-check fs-4"></i>
+                    <div class="card-body text-center p-3">
+                        <div class="stat-icon agendadas mx-auto mb-2">
+                            <i class="bi bi-calendar-event"></i>
                         </div>
-                        <h3 class="fw-bold mb-1" id="statHoje">0</h3>
-                        <p style="color:var(--gray-500);" class="mb-0">Consultas Hoje</p>
+                        <h3 class="fw-bold mb-0" id="statHoje">0</h3>
+                        <small style="color:var(--text-muted);">Hoje</small>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
                 <div class="card h-100">
-                    <div class="card-body text-center p-4">
-                        <div class="stat-icon concluidas mx-auto mb-3">
-                            <i class="bi bi-clock-history fs-4"></i>
+                    <div class="card-body text-center p-3">
+                        <div class="stat-icon concluidas mx-auto mb-2">
+                            <i class="bi bi-clock-history"></i>
                         </div>
-                        <h3 class="fw-bold mb-1" id="statProximas">0</h3>
-                        <p style="color:var(--gray-500);" class="mb-0">Próximas</p>
+                        <h3 class="fw-bold mb-0" id="statProximas">0</h3>
+                        <small style="color:var(--text-muted);">Próximas</small>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
                 <div class="card h-100">
-                    <div class="card-body text-center p-4">
-                        <div class="stat-icon canceladas mx-auto mb-3">
-                            <i class="bi bi-check-circle fs-4"></i>
+                    <div class="card-body text-center p-3">
+                        <div class="stat-icon canceladas mx-auto mb-2">
+                            <i class="bi bi-check2-all"></i>
                         </div>
-                        <h3 class="fw-bold mb-1" id="statTotal">0</h3>
-                        <p style="color:var(--gray-500);" class="mb-0">Total</p>
+                        <h3 class="fw-bold mb-0" id="statTotal">0</h3>
+                        <small style="color:var(--text-muted);">Total</small>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Filtros -->
-        <div class="card mb-4">
-            <div class="card-header py-3">
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-                    <h5 class="mb-0 fw-bold">
-                        <i class="bi bi-calendar3 me-2"></i>As Minhas Consultas
-                    </h5>
+        <!-- Tabs -->
+        <ul class="nav nav-pills mb-4" id="medicoTabs">
+            <li class="nav-item">
+                <button type="button" class="nav-link active" data-bs-toggle="pill" data-bs-target="#tabConsultas">
+                    <i class="bi bi-calendar3 me-2"></i>As Minhas Consultas
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabPerfil">
+                    <i class="bi bi-gear me-2"></i>Editar Perfil
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+
+            <!-- TAB: Consultas -->
+            <div class="tab-pane fade show active" id="tabConsultas">
+                <!-- Filtros -->
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <div class="btn-group" role="group">
                         <button class="btn btn-outline-primary btn-sm active" data-filter="todas">Todas</button>
                         <button class="btn btn-outline-primary btn-sm" data-filter="hoje">Hoje</button>
                         <button class="btn btn-outline-primary btn-sm" data-filter="agendada">Agendadas</button>
                         <button class="btn btn-outline-primary btn-sm" data-filter="concluída">Concluídas</button>
+                        <button class="btn btn-outline-primary btn-sm" data-filter="cancelada">Canceladas</button>
+                    </div>
+                </div>
+
+                <!-- Lista de consultas em cards -->
+                <div id="consultasMedicoList">
+                    <!-- Spinner -->
+                    <div id="loadingMedico" class="text-center py-5">
+                        <div class="spinner-border" role="status"></div>
+                        <p class="mt-2" style="color:var(--text-muted);">A carregar consultas...</p>
                     </div>
                 </div>
             </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>Paciente</th>
-                                <th>Email</th>
-                                <th>Telefone</th>
-                                <th>Data</th>
-                                <th>Hora</th>
-                                <th>Tipo</th>
-                                <th>Estado</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="consultasMedicoTable">
-                            <tr>
-                                <td colspan="8" class="text-center py-5" style="color:var(--gray-500);">
-                                    <i class="bi bi-calendar-x fs-1 d-block mb-2"></i>
-                                    Ainda não tem consultas agendadas
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+            <!-- TAB: Perfil -->
+            <div class="tab-pane fade" id="tabPerfil">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <form id="formPerfilMedico">
+                            <!-- Foto -->
+                            <div class="text-center mb-4">
+                                <div class="position-relative d-inline-block">
+                                    <img id="previewFoto" src="https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=200&h=200&fit=crop&crop=face"
+                                         alt="Foto" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--border);">
+                                    <label for="uploadFoto" class="position-absolute bottom-0 end-0 btn btn-sm btn-primary rounded-circle" style="width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                                        <i class="bi bi-camera-fill" style="font-size:0.75rem;"></i>
+                                    </label>
+                                    <input type="file" id="uploadFoto" accept="image/*" style="display:none;">
+                                </div>
+                                <div class="mt-2">
+                                    <small style="color:var(--text-muted);">Clique na câmara para mudar a foto</small>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editNomeMedico" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="editNomeMedico" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editFotoUrl" class="form-label">Ou cole o link da foto</label>
+                                <input type="url" class="form-control" id="editFotoUrl" placeholder="https://...">
+                            </div>
+                            <div class="mb-4">
+                                <label for="editSenhaMedico" class="form-label">Nova Senha (deixe vazio para manter)</label>
+                                <input type="password" class="form-control" id="editSenhaMedico" placeholder="Nova senha">
+                            </div>
+                            <div id="perfilMedicoError" class="alert alert-danger d-none mb-3"></div>
+                            <div id="perfilMedicoSuccess" class="alert alert-success d-none mb-3"></div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg me-2"></i>Guardar Alterações
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Spinner -->
-        <div id="loadingMedico" class="text-center py-5">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">A carregar...</span>
-            </div>
-        </div>
-
-        <!-- Editar Perfil -->
-        <div class="card mt-4">
-            <div class="card-header py-3">
-                <h5 class="mb-0 fw-bold">
-                    <i class="bi bi-gear me-2"></i>Editar o Meu Perfil
-                </h5>
-            </div>
-            <div class="card-body p-4">
-                <form id="formPerfilMedico">
-                    <div class="row align-items-center mb-4">
-                        <div class="col-auto">
-                            <img id="previewFoto" src="https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=200&h=200&fit=crop&crop=face"
-                                 alt="Foto" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--gray-200);">
-                        </div>
-                        <div class="col">
-                            <small style="color:var(--gray-500);">Foto atual do perfil</small>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editNomeMedico" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="editNomeMedico" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editFotoUrl" class="form-label">URL da Foto</label>
-                        <input type="url" class="form-control" id="editFotoUrl" placeholder="https://...">
-                        <small style="color:var(--gray-500);">Cole o link de uma foto (Google Imagens, etc.)</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editSenhaMedico" class="form-label">Nova Senha (deixe vazio para manter)</label>
-                        <input type="password" class="form-control" id="editSenhaMedico" placeholder="Nova senha">
-                    </div>
-                    <div id="perfilMedicoError" class="alert alert-danger d-none mb-3"></div>
-                    <div id="perfilMedicoSuccess" class="alert alert-success d-none mb-3"></div>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-check-lg me-2"></i>Guardar Alterações
-                    </button>
-                </form>
             </div>
         </div>
     </section>
+
+    <!-- Modal: Responder à consulta -->
+    <div class="modal fade" id="responderModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-chat-dots me-2"></i>Atualizar Consulta
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="responderInfo" class="mb-3 p-3" style="background:var(--bg-input);border-radius:0.5rem;"></div>
+                    <div class="mb-3">
+                        <label class="form-label">Estado</label>
+                        <select class="form-select" id="responderEstado">
+                            <option value="concluída">Concluída</option>
+                            <option value="cancelada">Cancelada</option>
+                            <option value="agendada">Reagendar</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Notas / Observações</label>
+                        <textarea class="form-control" id="responderNotas" rows="3" placeholder="Adicione observações sobre a consulta..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmarResposta">
+                        <i class="bi bi-check-lg me-1"></i>Confirmar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="text-center">
