@@ -93,6 +93,7 @@ async function mostrarDashboard(medicoId, medicoNome) {
 
     // Carregar dados
     await carregarDadosMedico(medicoId);
+    await carregarPerfilMedico(medicoId);
 
     // Filtros
     document.querySelectorAll('[data-filter]').forEach(btn => {
@@ -102,6 +103,89 @@ async function mostrarDashboard(medicoId, medicoNome) {
             await carregarConsultasMedico(medicoId, btn.dataset.filter);
         });
     });
+
+    // Formulário de perfil
+    const formPerfil = document.getElementById('formPerfilMedico');
+    if (formPerfil) {
+        formPerfil.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await guardarPerfilMedico(medicoId);
+        });
+
+        // Preview da foto ao colar URL
+        const fotoInput = document.getElementById('editFotoUrl');
+        if (fotoInput) {
+            fotoInput.addEventListener('input', () => {
+                const url = fotoInput.value.trim();
+                if (url) {
+                    document.getElementById('previewFoto').src = url;
+                }
+            });
+        }
+    }
+}
+
+// Carregar perfil do médico
+async function carregarPerfilMedico(medicoId) {
+    try {
+        const { data, error } = await supabaseClient
+            .from('medicos')
+            .select('*')
+            .eq('id', medicoId)
+            .single();
+
+        if (error) throw error;
+
+        document.getElementById('editNomeMedico').value = data.nome || '';
+        document.getElementById('editFotoUrl').value = data.foto_url || '';
+        if (data.foto_url) {
+            document.getElementById('previewFoto').src = data.foto_url;
+        }
+    } catch (error) {
+        console.error('Erro ao carregar perfil:', error);
+    }
+}
+
+// Guardar perfil do médico
+async function guardarPerfilMedico(medicoId) {
+    const nome = document.getElementById('editNomeMedico').value.trim();
+    const fotoUrl = document.getElementById('editFotoUrl').value.trim();
+    const senha = document.getElementById('editSenhaMedico').value;
+    const errorDiv = document.getElementById('perfilMedicoError');
+    const successDiv = document.getElementById('perfilMedicoSuccess');
+
+    try {
+        errorDiv.classList.add('d-none');
+        successDiv.classList.add('d-none');
+
+        if (!nome) {
+            throw new Error('O nome é obrigatório.');
+        }
+
+        const updates = { nome, foto_url: fotoUrl };
+        if (senha) updates.senha = senha;
+
+        const { error } = await supabaseClient
+            .from('medicos')
+            .update(updates)
+            .eq('id', medicoId);
+
+        if (error) throw error;
+
+        // Atualizar nome no navbar
+        document.getElementById('medicoName').textContent = nome;
+        sessionStorage.setItem('medico_nome', nome);
+
+        // Limpar campo senha
+        document.getElementById('editSenhaMedico').value = '';
+
+        successDiv.textContent = 'Perfil atualizado com sucesso!';
+        successDiv.classList.remove('d-none');
+
+    } catch (error) {
+        errorDiv.textContent = error.message;
+        errorDiv.classList.remove('d-none');
+    }
 }
 
 // Carregar dados do médico

@@ -57,28 +57,8 @@
             <h2 class="fw-bold mb-2" style="font-size: 2rem;">Os Nossos Médicos</h2>
             <p style="color: var(--gray-500);">Profissionais de saúde qualificados ao seu dispor</p>
         </div>
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-4 col-lg-3">
-                <div class="card doctor-card">
-                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&h=200&fit=crop&crop=face" alt="Dr. João Silva">
-                    <h6>Dr. João Silva</h6>
-                    <small>Medicina Geral</small>
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-3">
-                <div class="card doctor-card">
-                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=200&h=200&fit=crop&crop=face" alt="Dra. Maria Santos">
-                    <h6>Dra. Maria Santos</h6>
-                    <small>Cardiologia</small>
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-3">
-                <div class="card doctor-card">
-                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&h=200&fit=crop&crop=face" alt="Dr. Pedro Oliveira">
-                    <h6>Dr. Pedro Oliveira</h6>
-                    <small>Dermatologia</small>
-                </div>
-            </div>
+        <div class="row g-4 justify-content-center" id="doctorsList">
+            <!-- Médicos carregados dinamicamente via JS -->
         </div>
     </section>
 
@@ -163,5 +143,33 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-config.js"></script>
     <script src="js/auth.js"></script>
+    <script>
+        // Carregar médicos dinamicamente
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const { data: medicos } = await supabaseClient
+                    .from('medicos')
+                    .select('*')
+                    .order('nome');
+
+                const container = document.getElementById('doctorsList');
+                if (medicos && container) {
+                    medicos.forEach(m => {
+                        container.innerHTML += `
+                            <div class="col-md-4 col-lg-3">
+                                <div class="card doctor-card">
+                                    <img src="${m.foto_url || 'https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=200&h=200&fit=crop&crop=face'}" alt="${m.nome}">
+                                    <h6>${m.nome}</h6>
+                                    <small>${m.especialidade}</small>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (error) {
+                console.error('Erro ao carregar médicos:', error);
+            }
+        });
+    </script>
 </body>
 </html>
