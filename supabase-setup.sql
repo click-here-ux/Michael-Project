@@ -90,15 +90,15 @@ CREATE POLICY "Utilizadores podem eliminar as próprias consultas"
 -- 4. INSERIR DADOS DE EXEMPLO (MÉDICOS)
 -- =============================================
 
-INSERT INTO medicos (nome, especialidade) VALUES
-    ('Dr. João Silva', 'Medicina Geral'),
-    ('Dra. Maria Santos', 'Cardiologia'),
-    ('Dr. Pedro Oliveira', 'Dermatologia'),
-    ('Dra. Ana Costa', 'Pediatria'),
-    ('Dr. Manuel Pereira', 'Ortopedia'),
-    ('Dra. Sofia Ferreira', 'Ginecologia'),
-    ('Dr. Ricardo Almeida', 'Oftalmologia'),
-    ('Dra. Catarina Mendes', 'Neurologia');
+INSERT INTO medicos (nome, especialidade, foto_url) VALUES
+    ('Dr. João Silva', 'Medicina Geral', 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&h=200&fit=crop&crop=face'),
+    ('Dra. Maria Santos', 'Cardiologia', 'https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=200&h=200&fit=crop&crop=face'),
+    ('Dr. Pedro Oliveira', 'Dermatologia', 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&h=200&fit=crop&crop=face'),
+    ('Dra. Ana Costa', 'Pediatria', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face'),
+    ('Dr. Manuel Pereira', 'Ortopedia', 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=200&h=200&fit=crop&crop=face'),
+    ('Dra. Sofia Ferreira', 'Ginecologia', 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=200&h=200&fit=crop&crop=face'),
+    ('Dr. Ricardo Almeida', 'Oftalmologia', 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&h=200&fit=crop&crop=face'),
+    ('Dra. Catarina Mendes', 'Neurologia', 'https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=200&h=200&fit=crop&crop=face');
 
 -- =============================================
 -- 5. CRIAR ÍNDICES PARA PERFORMANCE
