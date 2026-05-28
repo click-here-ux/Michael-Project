@@ -14,6 +14,7 @@ const STATIC_ASSETS = [
     '/js/agendar.js',
     '/js/perfil.js',
     '/js/medico.js',
+    '/js/install.js',
     '/manifest.json'
 ];
 
