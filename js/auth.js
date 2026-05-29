@@ -2,6 +2,11 @@
 // Módulo de Autenticação
 // =============================================
 
+// Verificar se o Supabase carregou corretamente
+if (typeof supabaseClient === 'undefined') {
+    console.error('supabaseClient não está definido. O CDN do Supabase pode ter falhado.');
+}
+
 // Verificar se o utilizador está autenticado
 async function checkAuth() {
     const { data: { session } } = await supabaseClient.auth.getSession();
